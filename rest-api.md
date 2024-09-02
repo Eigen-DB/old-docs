@@ -1,6 +1,3 @@
 # REST API 
-{% swagger src="https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/api-with-examples.yaml" path="/stars" method="post" %} sample.yaml {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/api-with-examples.yaml" path="/stars" method="post" %} sample.yaml {% endswagger %}
-
-{% swagger src="https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/api-with-examples.yaml" path="/stars" method="post" %} sample.yaml {% endswagger %}
+{% swagger src="https://petstore3.swagger.io/api/v3/openapi.json" path="/pet" method="post" %} https://petstore3.swagger.io/api/v3/openapi.json {% endswagger %}

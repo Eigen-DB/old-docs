@@ -6,7 +6,7 @@
       "description": "API for bulk inserting vectors."
     },
     "paths": {
-      "/vectors/bulkInsert": {
+      "/vector/bulkInsert": {
         "post": {
           "summary": "Bulk Insert Vectors",
           "operationId": "bulkInsertVectors",

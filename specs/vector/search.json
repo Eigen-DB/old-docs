@@ -6,7 +6,7 @@
       "description": "API for searching similar vectors."
     },
     "paths": {
-      "/vectors/search": {
+      "/vector/search": {
         "post": {
           "summary": "Search for Similar Vectors",
           "operationId": "searchVectors",

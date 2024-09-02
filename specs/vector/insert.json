@@ -6,7 +6,7 @@
       "description": "API for inserting a single vector."
     },
     "paths": {
-      "/vectors/insert": {
+      "/vector/insert": {
         "post": {
           "summary": "Insert Single Vector",
           "operationId": "insertVector",

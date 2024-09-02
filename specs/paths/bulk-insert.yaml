@@ -1,0 +1,32 @@
+put:
+  summary: Bulk insert vectors
+  operationId: bulkInsertVectors
+  requestBody:
+    description: Set of vectors to insert
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            setOfComponents:
+              type: array
+              items:
+                type: array
+                items:
+                  $ref: '../schemas/vectorComponent.yaml'
+          required:
+            - setOfComponents
+  responses:
+    '200':
+      description: Result of the bulk insert operation
+      content:
+        text/plain:
+          schema:
+            type: string
+    '400':
+      description: Bad Request - Invalid input
+      content:
+        text/plain:
+          schema:
+            type: string

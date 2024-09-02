@@ -10,117 +10,15 @@ servers:
 
 paths:
   /vector/insert:
-    put:
-      summary: Insert a vector
-      operationId: insertVector
-      requestBody:
-        description: Components of the vector to insert
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                components:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/VectorComponent'
-              required:
-                - components
-      responses:
-        '200':
-          description: Vector successfully inserted
-          content:
-            text/plain:
-              schema:
-                type: string
-        '400':
-          description: Bad Request - Invalid input or wrong dimensionality
-          content:
-            text/plain:
-              schema:
-                type: string
-
+    $ref: './paths/insert.yaml'
   /vector/bulk-insert:
-    put:
-      summary: Bulk insert vectors
-      operationId: bulkInsertVectors
-      requestBody:
-        description: Set of vectors to insert
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                setOfComponents:
-                  type: array
-                  items:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/VectorComponent'
-              required:
-                - setOfComponents
-      responses:
-        '200':
-          description: Result of the bulk insert operation
-          content:
-            text/plain:
-              schema:
-                type: string
-        '400':
-          description: Bad Request - Invalid input
-          content:
-            text/plain:
-              schema:
-                type: string
-
+    $ref: './paths/bulk-insert.yaml'
   /vector/search:
-    get:
-      summary: Search for similar vectors
-      operationId: searchVectors
-      parameters:
-        - in: query
-          name: queryVectorId
-          required: true
-          schema:
-            $ref: '#/components/schemas/VectorId'
-          description: ID of the query vector
-        - in: query
-          name: k
-          required: true
-          schema:
-            type: integer
-          description: Number of nearest neighbors to retrieve
-      responses:
-        '200':
-          description: List of nearest neighbor vector IDs
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/VectorId'
-        '400':
-          description: Bad Request - Invalid input or search error
-          content:
-            text/plain:
-              schema:
-                type: string
+    $ref: './paths/search.yaml'
 
 components:
   schemas:
     VectorComponent:
-      type: object
-      properties:
-        dimension:
-          type: integer
-        value:
-          type: number
-          format: float
-      required:
-        - dimension
-        - value
-
+      $ref: './schemas/vectorComponent.yaml'
     VectorId:
-      type: string
+      $ref: './schemas/vectorId.yaml'

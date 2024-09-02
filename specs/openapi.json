@@ -1,0 +1,30 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Vector API",
+      "version": "1.0.0",
+      "description": "API for inserting and searching vectors."
+    },
+    "paths": {
+      "/vectors/bulkInsert": {
+        "$ref": "bulkInsert.json#/paths/~1vectors~1bulkInsert/post"
+      },
+      "/vectors/insert": {
+        "$ref": "insert.json#/paths/~1vectors~1insert/post"
+      },
+      "/vectors/search": {
+        "$ref": "search.json#/paths/~1vectors~1search/post"
+      }
+    },
+    "components": {
+      "schemas": {
+        "VectorComponent": {
+          "$ref": "bulkInsert.json#/components/schemas/VectorComponent"
+        },
+        "VectorId": {
+          "$ref": "search.json#/components/schemas/VectorId"
+        }
+      }
+    }
+  }
+  

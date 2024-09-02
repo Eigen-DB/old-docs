@@ -1,0 +1,68 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Vector API - Insert",
+      "version": "1.0.0",
+      "description": "API for inserting a single vector."
+    },
+    "paths": {
+      "/vectors/insert": {
+        "post": {
+          "summary": "Insert Single Vector",
+          "operationId": "insertVector",
+          "requestBody": {
+            "description": "Vector components to insert",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "components": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/VectorComponent"
+                      }
+                    }
+                  },
+                  "required": ["components"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Vector successfully inserted",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid request body or vector dimensionality"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "VectorComponent": {
+          "type": "object",
+          "properties": {
+            "dimension": {
+              "type": "integer"
+            },
+            "value": {
+              "type": "number"
+            }
+          },
+          "required": ["dimension", "value"]
+        }
+      }
+    }
+  }
+  

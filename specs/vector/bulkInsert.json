@@ -1,0 +1,71 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Vector API - Bulk Insert",
+      "version": "1.0.0",
+      "description": "API for bulk inserting vectors."
+    },
+    "paths": {
+      "/vectors/bulkInsert": {
+        "post": {
+          "summary": "Bulk Insert Vectors",
+          "operationId": "bulkInsertVectors",
+          "requestBody": {
+            "description": "Array of vector components to insert",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "setOfComponents": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/VectorComponent"
+                        }
+                      }
+                    }
+                  },
+                  "required": ["setOfComponents"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful insertion of vectors",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid request body"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "VectorComponent": {
+          "type": "object",
+          "properties": {
+            "dimension": {
+              "type": "integer"
+            },
+            "value": {
+              "type": "number"
+            }
+          },
+          "required": ["dimension", "value"]
+        }
+      }
+    }
+  }
+  

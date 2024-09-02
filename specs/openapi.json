@@ -7,22 +7,22 @@
     },
     "paths": {
       "/vector/bulkInsert": {
-        "$ref": "bulkInsert.json#/paths/~1vector~1bulkInsert/post"
+        "$ref": "vector/bulkInsert.json#/paths/~1vector~1bulkInsert/post"
       },
       "/vector/insert": {
-        "$ref": "insert.json#/paths/~1vector~1insert/post"
+        "$ref": "vector/insert.json#/paths/~1vector~1insert/post"
       },
       "/vector/search": {
-        "$ref": "search.json#/paths/~1vector~1search/post"
+        "$ref": "vector/search.json#/paths/~1vector~1search/post"
       }
     },
     "components": {
       "schemas": {
         "VectorComponent": {
-          "$ref": "bulkInsert.json#/components/schemas/VectorComponent"
+          "$ref": "vector/bulkInsert.json#/components/schemas/VectorComponent"
         },
         "VectorId": {
-          "$ref": "search.json#/components/schemas/VectorId"
+          "$ref": "vector/search.json#/components/schemas/VectorId"
         }
       }
     }

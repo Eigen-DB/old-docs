@@ -15,7 +15,7 @@ put:
             components:
               type: array
               items:
-                $ref: '../components.yaml#/components/schemas/VectorComponent'
+                $ref: '../components/components.yaml#/components/schemas/VectorComponent'
               description: Array of vector components.
   responses:
     '200':

@@ -8,9 +8,9 @@ paths:
     put:
       summary: Insert a vector
       operationId: insertVector
-      description: Inserts a vector into the system by providing the components.
+      description: Inserts a vector into the database.
       requestBody:
-        description: Components of the vector that need to be inserted.
+        description:  The N components of the N-dimensional vector to be inserted.
         required: true
         content:
           application/json:
@@ -21,8 +21,9 @@ paths:
               properties:
                 components:
                   type: array
-                  items: 
-                    $ref: '#/components/schemas/VectorComponent'
+                  items:
+                    type: number
+                    format: float
                   description: Array of vector components (float32).
       responses:
         '200':
@@ -40,9 +41,3 @@ paths:
                 type: string
                 example: vector provided had the wrong dimensionality
 
-components:
-  schemas:
-    VectorComponent:
-      type: number
-      format: float
-      description: A single component of a vector (float32).

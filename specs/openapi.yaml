@@ -7,6 +7,6 @@ paths:
   /vector/insert:
     $ref: './endpoints/insert.yaml'
 
-components:
-  schemas:
-    $ref: './components/components.yaml'
+#components:
+#  schemas:
+#    $ref: './components/components.yaml'

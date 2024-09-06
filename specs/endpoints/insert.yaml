@@ -15,7 +15,9 @@ put:
             components:
               type: array
               items:
-                $ref: '../components/components.yaml#/VectorComponent'
+                type: number
+                format: float
+                description: A single component of a vector (float32).
               description: Array of vector components.
   responses:
     '200':

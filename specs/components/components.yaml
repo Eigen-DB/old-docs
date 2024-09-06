@@ -1,6 +1,4 @@
-components:
-  schemas:
-    VectorComponent:
-      type: number
-      format: float
-      description: A single component of a vector (float32).
+VectorComponent:
+  type: number
+  format: float
+  description: A single component of a vector (float32).

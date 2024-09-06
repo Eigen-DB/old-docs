@@ -5,44 +5,8 @@ info:
   version: 1.0.0
 paths:
   /vector/insert:
-    put:
-      summary: Insert a vector
-      operationId: insertVector
-      description: Inserts a vector into the system by providing the components.
-      requestBody:
-        description: Components of the vector that need to be inserted.
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - components
-              properties:
-                components:
-                  type: array
-                  items: 
-                    $ref: '#/components/schemas/VectorComponent'
-                  description: Array of vector components (float32).
-      responses:
-        '200':
-          description: Vector successfully inserted.
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: Vector successfully inserted.
-        '400':
-          description: Invalid request or incorrect dimensionality.
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: vector provided had the wrong dimensionality
+    $ref: './endpoints/insert.yaml'
 
 components:
   schemas:
-    VectorComponent:
-      type: number
-      format: float
-      description: A single component of a vector (float32).
+    $ref: './components/components.yaml'

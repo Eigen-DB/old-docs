@@ -146,7 +146,7 @@ paths:
   /update-config/persistence/time-interval:
     post:
       summary: Update persistence time interval
-      operationId: searchVector
+      operationId: updatePersistenceTimeInterval
       description: Modify the time interval at which vectors in memory are persisted on disk.
       requestBody:
         #description: The updated time interval in seconds.
@@ -170,3 +170,207 @@ paths:
               schema:
                 type: string
                 example: "Time interval updated."
+
+  
+
+  /update-config/api/port:
+    post:
+      summary: Update the API port
+      operationId: updateApiPort
+      description: Update the port on which the API runs (default = 8080). EigenDB must be restarted this to take effect.
+      requestBody:
+        #description: The updated time interval in seconds.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updatedPort
+              properties:
+                updatedPort:
+                  type: number
+                  format: int
+                  description: The updated port (int).
+      responses:
+        '200':
+          description: Port updated.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "API port updated. Please restart the database for it to take effect."
+
+
+
+  /update-config/api/address:
+    post:
+      summary: Update the API address
+      operationId: updateApiAddress
+      description: Update the address on which the API runs (default = 0.0.0.0). EigenDB must be restarted this to take effect.
+      requestBody:
+        #description: The updated time interval in seconds.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updatedAddress
+              properties:
+                updatedAddress:
+                  type: string
+                  description: The updated address.
+      responses:
+        '200':
+          description: Address updated.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "API address updated. Please restart the database for it to take effect."
+
+
+
+  #/update-config/hnsw-params/dimensions:
+  #  post:
+  #    summary: Update the API address
+  #    operationId: updateApiAddress
+  #    description: Update the address on which the API runs (default = 0.0.0.0). EigenDB must be restarted for an updated address to take effect.
+  #    requestBody:
+  #      #description: The updated time interval in seconds.
+  #      required: true
+  #      content:
+  #        application/json:
+  #          schema:
+  #            type: object
+  #            required:
+  #              - updatedAddress
+  #            properties:
+  #              updatedPort:
+  #                type: string
+  #                description: The updated address.
+  #    responses:
+  #      '200':
+  #        description: Address updated.
+  #        content:
+  #          text/plain:
+  #            schema:
+  #              type: string
+  #              example: "API address updated. Please restart the database for it to take effect."
+
+
+
+  /update-config/hnsw-params/similarity-metric:
+    post:
+      summary: Update the similarity metric
+      operationId: updateSimilarityMetric
+      description: Update the similarity metric used in similarity search (default = euclidean). EigenDB must be restarted this to take effect.
+      requestBody:
+        #description: The updated time interval in seconds.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updatedMetric
+              properties:
+                updatedMetric:
+                  type: string
+                  description: The updated similarity metric (cosine, euclidean, ip).
+      responses:
+        '200':
+          description: Metric updated.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Vector similarity metric updated. Please restart the database for it to take effect."
+  
+
+
+  /update-config/hnsw-params/vector-space-size:
+    post:
+      summary: Update the vector space size
+      operationId: updateVectorSpaceSize
+      description: Update the vector storage capacity. EigenDB must be restarted this to take effect.
+      requestBody:
+        #description: The updated time interval in seconds.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updatedSize
+              properties:
+                updatedSize:
+                  type: string
+                  description: The updated vector space size.
+      responses:
+        '200':
+          description: Size updated.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Vector space size updated. Please restart the database for it to take effect."
+
+
+
+  /update-config/hnsw-params/m:
+    post:
+      summary: Update the M parameter
+      operationId: updateMParam
+      description: Update M parameter in the HNSW algorithm used for similarity search. EigenDB must be restarted this to take effect.
+      requestBody:
+        #description: The updated time interval in seconds.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updatedM
+              properties:
+                updatedM:
+                  type: string
+                  description: The updated M parameter.
+      responses:
+        '200':
+          description: M updated.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "M paramater updated. Please restart the database for it to take effect."
+
+
+
+  /update-config/hnsw-params/ef-construction:
+    post:
+      summary: Update the efConstruction parameter
+      operationId: updateEFConstParam
+      description: Update efConstruction parameter in the HNSW algorithm used for similarity search. EigenDB must be restarted this to take effect.
+      requestBody:
+        #description: The updated time interval in seconds.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updatedEfConst
+              properties:
+                updatedEfConst:
+                  type: string
+                  description: The updated efConstruction parameter.
+      responses:
+        '200':
+          description: efConstruction updated.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "EF Construction paramater updated. Please restart the database for it to take effect."

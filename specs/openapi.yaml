@@ -3,9 +3,6 @@ info:
   title: EigenDB REST API
   description: REST API for EigenDB, the blazingly fast in-memory vector database.
   version: 1.0.0
-servers:
-  - url: https://your-instance.example.com
-    description: Your EigenDB instance address.
 paths:
   /health:
     get:

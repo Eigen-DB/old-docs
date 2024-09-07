@@ -1,16 +1,47 @@
 openapi: 3.0.3
 info:
-  title: Vector API
-  description: API for inserting vectors into the system.
+  title: EigenDB REST API
+  description: REST API for EigenDB, the blazingly fast in-memory vector database.
   version: 1.0.0
 paths:
+  /health:
+    get:
+      summary: Database health check
+      operationId: healthCheck
+      description: Perform a health check on the database.
+      responses:
+        '200':
+          description: Database is healthy.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                example:
+                  status: healthy
+        '500':
+          description: Database is unhealthy.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                example:
+                  status: unhealthy
+
+
+
   /vector/insert:
     put:
       summary: Insert a vector
       operationId: insertVector
-      description: Inserts a vector into the system by providing the components.
+      description: Inserts a vector into the database.
       requestBody:
-        description: Components of the vector that need to be inserted.
+        #description:  The N components of the N-dimensional vector to be inserted.
         required: true
         content:
           application/json:
@@ -21,12 +52,13 @@ paths:
               properties:
                 components:
                   type: array
-                  items: 
-                    $ref: '#/components/schemas/VectorComponent'
-                  description: Array of vector components (float32).
+                  items:
+                    type: number
+                    format: float
+                  description: Components of vector to be inserted
       responses:
         '200':
-          description: Vector successfully inserted.
+          description: Vector inserted.
           content:
             text/plain:
               schema:
@@ -39,10 +71,306 @@ paths:
               schema:
                 type: string
                 example: vector provided had the wrong dimensionality
+  
+  
+  
+  /vector/bulk-insert:
+    put:
+      summary: Insert many vectors
+      operationId: bulkInsertVectors
+      description: Insert many vectors at once into the database.
+      requestBody:
+        #description: A list of the vectors to be inserted. Each vector is represented by their components.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - setOfComponents
+              properties:
+                setOfComponents:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: number
+                      format: float
+                  description: Array of vectors, each represented by their components (float32[][])
+      responses:
+        '200':
+          description: Vectors inserted.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 10/10 vectors successfully inserted.
+  
 
-components:
-  schemas:
-    VectorComponent:
-      type: number
-      format: float
-      description: A single component of a vector (float32).
+
+  /vector/search:
+    get:
+      summary: Perform similarity search
+      operationId: searchVector
+      description: Perform similarity search on a query vector.
+      requestBody:
+        #description: The query vector's ID and the number of nearest vectors desired. 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - queryVectorId
+                - k
+              properties:
+                queryVectorId:
+                  type: number
+                  format: int
+                  description: ID of the query vector
+                k:
+                  type: number
+                  format: int
+                  description: K-nearest vectors desired
+      responses:
+        '200':
+          description: The k-nearest vectors returned in a array.
+          content:
+            text/plain:
+              schema:
+                type: array
+                example: [4,7,2,8,5]
+
+
+
+  /update-config/persistence/time-interval:
+    post:
+      summary: Update persistence time interval
+      operationId: updatePersistenceTimeInterval
+      description: Modify the time interval at which vectors in memory are persisted on disk.
+      requestBody:
+        #description: The updated time interval in seconds.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updatedValueSecs
+              properties:
+                updatedValueSecs:
+                  type: number
+                  format: float
+                  description: The new time interval in seconds
+      responses:
+        '200':
+          description: Time interval successfully updated.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Time interval updated."
+
+  
+
+  /update-config/api/port:
+    post:
+      summary: Update the API port
+      operationId: updateApiPort
+      description: Update the port on which the API runs (default = 8080). EigenDB must be restarted this to take effect.
+      requestBody:
+        #description: The updated time interval in seconds.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updatedPort
+              properties:
+                updatedPort:
+                  type: number
+                  format: int
+                  description: The new port number
+      responses:
+        '200':
+          description: API port successfully updated.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "API port updated. Please restart the database for it to take effect."
+
+
+
+  /update-config/api/address:
+    post:
+      summary: Update the API address
+      operationId: updateApiAddress
+      description: Update the address on which the API runs (default = 0.0.0.0). EigenDB must be restarted this to take effect.
+      requestBody:
+        #description: The updated time interval in seconds.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updatedAddress
+              properties:
+                updatedAddress:
+                  type: string
+                  description: The new API address
+      responses:
+        '200':
+          description: API address successfully updated.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "API address updated. Please restart the database for it to take effect."
+
+
+
+  #/update-config/hnsw-params/dimensions:
+  #  post:
+  #    summary: Update the API address
+  #    operationId: updateApiAddress
+  #    description: Update the address on which the API runs (default = 0.0.0.0). EigenDB must be restarted for an updated address to take effect.
+  #    requestBody:
+  #      #description: The updated time interval in seconds.
+  #      required: true
+  #      content:
+  #        application/json:
+  #          schema:
+  #            type: object
+  #            required:
+  #              - updatedAddress
+  #            properties:
+  #              updatedPort:
+  #                type: string
+  #                description: The updated address.
+  #    responses:
+  #      '200':
+  #        description: Address updated.
+  #        content:
+  #          text/plain:
+  #            schema:
+  #              type: string
+  #              example: "API address updated. Please restart the database for it to take effect."
+
+
+
+  /update-config/hnsw-params/similarity-metric:
+    post:
+      summary: Update the similarity metric
+      operationId: updateSimilarityMetric
+      description: Update the similarity metric used in similarity search (default = euclidean). EigenDB must be restarted this to take effect.
+      requestBody:
+        #description: The updated time interval in seconds.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updatedMetric
+              properties:
+                updatedMetric:
+                  type: string
+                  description: The new similarity metric (cosine, euclidean, ip)
+      responses:
+        '200':
+          description: Similarity metric successfully updated.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Vector similarity metric updated. Please restart the database for it to take effect."
+  
+
+
+  /update-config/hnsw-params/vector-space-size:
+    post:
+      summary: Update the vector space size
+      operationId: updateVectorSpaceSize
+      description: Update the vector storage capacity. EigenDB must be restarted this to take effect.
+      requestBody:
+        #description: The updated time interval in seconds.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updatedSize
+              properties:
+                updatedSize:
+                  type: string
+                  description: The new vector space size
+      responses:
+        '200':
+          description: Vector space size successfully updated.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Vector space size updated. Please restart the database for it to take effect."
+
+
+
+  /update-config/hnsw-params/m:
+    post:
+      summary: Update the M parameter
+      operationId: updateMParam
+      description: Update M parameter in the HNSW algorithm used for similarity search. EigenDB must be restarted this to take effect.
+      requestBody:
+        #description: The updated time interval in seconds.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updatedM
+              properties:
+                updatedM:
+                  type: string
+                  description: The new M parameter
+      responses:
+        '200':
+          description: M parameter successfully updated.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "M paramater updated. Please restart the database for it to take effect."
+
+
+
+  /update-config/hnsw-params/ef-construction:
+    post:
+      summary: Update the efConstruction parameter
+      operationId: updateEFConstParam
+      description: Update efConstruction parameter in the HNSW algorithm used for similarity search. EigenDB must be restarted this to take effect.
+      requestBody:
+        #description: The updated time interval in seconds.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updatedEfConst
+              properties:
+                updatedEfConst:
+                  type: string
+                  description: The new efConstruction parameter
+      responses:
+        '200':
+          description: efConstruction parameter successfully updated.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "EF Construction paramater updated. Please restart the database for it to take effect."

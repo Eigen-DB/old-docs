@@ -24,7 +24,7 @@ paths:
                   items:
                     type: number
                     format: float
-                  description: Array of vector components (float32).
+                  description: Array of vector components (float32[]).
       responses:
         '200':
           description: Vector successfully inserted.
@@ -40,5 +40,39 @@ paths:
               schema:
                 type: string
                 example: vector provided had the wrong dimensionality
+  
+  
+  
+  /vector/bulk-insert:
+    put:
+      summary: Insert many vectors
+      operationId: bulkInsertVectors
+      description: Insert many vectors at once into the database.
+      requestBody:
+        description: A list of the vectors to be inserted. Each vector is represented by their components.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - setOfComponents
+              properties:
+                setOfComponents:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: number
+                      format: float
+                  description: Array of vectors, each represented by their components (float32[][]).
+      responses:
+        '200':
+          description: Vectors successfully inserted.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 10/10 vectors successfully inserted.
 
 

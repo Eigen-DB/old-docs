@@ -1,4 +1,4 @@
-# REST API 
+# Eigen DB's REST API 
 
 {% swagger src="specs/openapi.yaml" path="/health" method="get" %} specs/openapi.yaml {% endswagger %}
 

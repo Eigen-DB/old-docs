@@ -4,6 +4,37 @@ info:
   description: API for inserting vectors into the system.
   version: 1.0.0
 paths:
+  /health:
+    get:
+      summary: Perform a health check on the database
+      operationId: healthCheck
+      description: Perform a health check on the database.
+      responses:
+        '200':
+          description: Database is healthy.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                example:
+                  status: healthy
+        '500':
+          description: Database is unhealthy.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                example:
+                  status: unhealthy
+
+
+
   /vector/insert:
     put:
       summary: Insert a vector
@@ -103,11 +134,11 @@ paths:
                   description: K-nearest vectors desired (int).
       responses:
         '200':
-          description: \5 nearest vectors returned (k = 5)
+          description: 5 nearest vectors returned (k = 5)
           content:
             text/plain:
               schema:
                 type: array
-                example: \[4,7,2,8,5\]
+                example: [4,7,2,8,5]
 
 

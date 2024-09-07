@@ -6,7 +6,7 @@ info:
 paths:
   /health:
     get:
-      summary: Perform a health check on the database
+      summary: Database health check
       operationId: healthCheck
       description: Perform a health check on the database.
       responses:
@@ -134,7 +134,7 @@ paths:
                   description: K-nearest vectors desired (int).
       responses:
         '200':
-          description: 5 nearest vectors returned (k = 5)
+          description: The k-nearest vectors returned in a array.
           content:
             text/plain:
               schema:
@@ -142,3 +142,31 @@ paths:
                 example: [4,7,2,8,5]
 
 
+
+  /update-config/persistence/time-interval:
+    post:
+      summary: Update persistence time interval
+      operationId: searchVector
+      description: Modify the time interval at which vectors in memory are persisted on disk.
+      requestBody:
+        #description: The updated time interval in seconds.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - updatedValueSecs
+              properties:
+                updatedValueSecs:
+                  type: number
+                  format: float
+                  description: The updated time interval in seconds (float32).
+      responses:
+        '200':
+          description: Interval updated.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Time interval updated."

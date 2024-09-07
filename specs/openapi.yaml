@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Vector API
-  description: API for inserting vectors into the system.
+  title: EigenDB REST API
+  description: REST API for EigenDB, the blazingly fast in-memory vector database.
   version: 1.0.0
 paths:
   /health:
@@ -41,7 +41,7 @@ paths:
       operationId: insertVector
       description: Inserts a vector into the database.
       requestBody:
-        description:  The N components of the N-dimensional vector to be inserted.
+        #description:  The N components of the N-dimensional vector to be inserted.
         required: true
         content:
           application/json:
@@ -55,10 +55,10 @@ paths:
                   items:
                     type: number
                     format: float
-                  description: Array of vector components (float32[]).
+                  description: Components of vector to be inserted
       responses:
         '200':
-          description: Vector successfully inserted.
+          description: Vector inserted.
           content:
             text/plain:
               schema:
@@ -80,7 +80,7 @@ paths:
       operationId: bulkInsertVectors
       description: Insert many vectors at once into the database.
       requestBody:
-        description: A list of the vectors to be inserted. Each vector is represented by their components.
+        #description: A list of the vectors to be inserted. Each vector is represented by their components.
         required: true
         content:
           application/json:
@@ -96,10 +96,10 @@ paths:
                     items:
                       type: number
                       format: float
-                  description: Array of vectors, each represented by their components (float32[][]).
+                  description: Array of vectors, each represented by their components (float32[][])
       responses:
         '200':
-          description: Vectors successfully inserted.
+          description: Vectors inserted.
           content:
             text/plain:
               schema:
@@ -114,7 +114,7 @@ paths:
       operationId: searchVector
       description: Perform similarity search on a query vector.
       requestBody:
-        description: The query vector's ID and the number of nearest vectors desired. 
+        #description: The query vector's ID and the number of nearest vectors desired. 
         required: true
         content:
           application/json:
@@ -127,11 +127,11 @@ paths:
                 queryVectorId:
                   type: number
                   format: int
-                  description: ID of the query vector (int).
+                  description: ID of the query vector
                 k:
                   type: number
                   format: int
-                  description: K-nearest vectors desired (int).
+                  description: K-nearest vectors desired
       responses:
         '200':
           description: The k-nearest vectors returned in a array.
@@ -161,10 +161,10 @@ paths:
                 updatedValueSecs:
                   type: number
                   format: float
-                  description: The updated time interval in seconds (float32).
+                  description: The new time interval in seconds
       responses:
         '200':
-          description: Interval updated.
+          description: Time interval successfully updated.
           content:
             text/plain:
               schema:
@@ -191,10 +191,10 @@ paths:
                 updatedPort:
                   type: number
                   format: int
-                  description: The updated port (int).
+                  description: The new port number
       responses:
         '200':
-          description: Port updated.
+          description: API port successfully updated.
           content:
             text/plain:
               schema:
@@ -220,10 +220,10 @@ paths:
               properties:
                 updatedAddress:
                   type: string
-                  description: The updated address.
+                  description: The new API address
       responses:
         '200':
-          description: Address updated.
+          description: API address successfully updated.
           content:
             text/plain:
               schema:
@@ -278,10 +278,10 @@ paths:
               properties:
                 updatedMetric:
                   type: string
-                  description: The updated similarity metric (cosine, euclidean, ip).
+                  description: The new similarity metric (cosine, euclidean, ip)
       responses:
         '200':
-          description: Metric updated.
+          description: Similarity metric successfully updated.
           content:
             text/plain:
               schema:
@@ -307,10 +307,10 @@ paths:
               properties:
                 updatedSize:
                   type: string
-                  description: The updated vector space size.
+                  description: The new vector space size
       responses:
         '200':
-          description: Size updated.
+          description: Vector space size successfully updated.
           content:
             text/plain:
               schema:
@@ -336,10 +336,10 @@ paths:
               properties:
                 updatedM:
                   type: string
-                  description: The updated M parameter.
+                  description: The new M parameter
       responses:
         '200':
-          description: M updated.
+          description: M parameter successfully updated.
           content:
             text/plain:
               schema:
@@ -365,10 +365,10 @@ paths:
               properties:
                 updatedEfConst:
                   type: string
-                  description: The updated efConstruction parameter.
+                  description: The new efConstruction parameter
       responses:
         '200':
-          description: efConstruction updated.
+          description: efConstruction parameter successfully updated.
           content:
             text/plain:
               schema:

@@ -1,5 +1,7 @@
 # EigenDB's REST API 
 
+EigenDB provides a robust REST API to perform various actions. 
+
 {% swagger src="specs/openapi.yaml" path="/health" method="get" %} specs/openapi.yaml {% endswagger %}
 
 {% swagger src="specs/openapi.yaml" path="/vector/insert" method="put" %} specs/openapi.yaml {% endswagger %}

@@ -74,5 +74,40 @@ paths:
               schema:
                 type: string
                 example: 10/10 vectors successfully inserted.
+  
+
+
+  /vector/search:
+    get:
+      summary: Perform similarity search
+      operationId: searchVector
+      description: Perform similarity search on a query vector.
+      requestBody:
+        description: The query vector's ID and the number of nearest vectors desired. 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - queryVectorId
+                - k
+              properties:
+                queryVectorId:
+                  type: number
+                  format: int
+                  description: ID of the query vector (int).
+                k:
+                  type: number
+                  format: int
+                  description: K-nearest vectors desired (int).
+      responses:
+        '200':
+          description: \5 nearest vectors returned (k = 5)
+          content:
+            text/plain:
+              schema:
+                type: array
+                example: \[4,7,2,8,5\]
 
 

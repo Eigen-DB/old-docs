@@ -1,0 +1,16 @@
+APIResponse:
+  type: object
+  properties:
+    status:
+      type: integer
+    message:
+      type: string
+    data:
+      type: object
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+        description:
+          type: string

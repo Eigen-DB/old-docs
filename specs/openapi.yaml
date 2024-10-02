@@ -15,12 +15,10 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
+                $ref: './schemas/response.yaml#HealthCheckResponse'
                 example:
-                  status: healthy
+                  status: 200
+                  message: "healthy"
         '500':
           description: Database is unhealthy.
           content:
@@ -31,7 +29,13 @@ paths:
                   status:
                     type: string
                 example:
-                  status: unhealthy
+                  status: 500
+                  message: "unhealthy"
+                  error:
+                    code: "ERROR_CONNECTING_TO_REDIS"
+                    description: "..."
+
+
 
 
 
